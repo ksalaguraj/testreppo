@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="menu_btn">
+        <a (click)="opnMenu()" class="menu_btn_a mnu_ad">
+            <span class="toggle_menu_btn"></span>
+        </a>
+    </div>
+    <ng-container *ngIf="headerMenu">
+        <ngx-json-ld [json]="schema"></ngx-json-ld>
+    </ng-container>
+    
+    <div class="wrpr">
+        <div class="container">
+            <div class="topNav-right">
+                <ul>
+
+                    <li *ngFor="let hmenu of headerMenu | slice: 0:2"><a [href]="hmenu.url" class="inv-site"
+                            [target]="hmenu.target">{{hmenu.title}}</a></li>
+                    <li *ngFor="let social of socialMenu"><a [href]="social.ctaUrl" [class]="social.title | lowercase "
+                            [target]="social.ctaTarget"></a></li>
+                    <!-- <li><a href="https://au.linkedin.com/company/idp-education-pty-ltd" class="linkedIn"></a></li>
+                    <li><a href="https://twitter.com/IDPGlobal?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"  class="twitter"></a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header-ctn">
+            <div class="header-lft-ctn">
+                <div class="logo" *ngIf="logo">
+                    <a href="/" class="mainlogo">
+                        <img [defaultImage]="defaultImage" [lazyLoad]="logo?.url" [alt]="logo?.title"
+                            [width]="logo?.width" [height]="logo?.height">
+                    </a>
+                </div>
+                <div class="social-icon-ctn">
+                    <ul class="social-icon-list">
+                        <li *ngFor="let social of socialMenu"><a [href]="social.ctaUrl" [class]="social.title | lowercase "
+                            [target]="social.ctaTarget"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-rgt-ctn">
+                <div class="menu_ctn">
+                    <div class="menu_ctn_bx">
+
+                        <ul>
+                            <li class="nav-item dropdown" *ngFor="let hmenu of headerMenu | slice: 2;let i = index;"
+                                (click)="listClick($event,hmenu)" [ngClass]="{'active drop-open': selectedItem == hmenu}">
+                                <a [href]="hmenu.url" class="nav-mnu-item">
+                                    {{hmenu.title}}
+                                </a>
+                                <span (click)="togg(hmenu.title)" *ngIf="hmenu.childNavigation.length > 0"
+                                    class="menu_arr">
+                                </span>
+                                <ng-container *ngIf="innerWidth <= 767">
+                                    <div class="dropdown_menu"
+                                        *ngIf="hmenu.childNavigation.length > 0 && dropdowns[hmenu.title]">
+                                        <ng-container>
+                            <li *ngFor="let childMenu of hmenu.childNavigation;let i = index;">
+                                <a class="dropdown-item" [href]="childMenu.url">
+                                    {{childMenu.title}}
+                                </a>
+                            </li>
+                            </ng-container>
+                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="innerWidth > 767">
+                        <div class="dropdown_menu" *ngIf="hmenu.childNavigation.length > 0">
+                            <ng-container>
+                                <li *ngFor="let childMenu of hmenu.childNavigation;let i = index;">
+                                    <a class="dropdown-item" [href]="childMenu.url">
+                                        {{childMenu.title}}
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    </li>
+                    </ul>
+                </div>
+                <div class="menu_btn">
+                    <a (click)="clsMenu()" class="menu_btn_b">
+                        <span class="toggle_cls_btn"></span>
+                    </a>
+                </div>
+                <div class="social_ctn_box">
+                    <ul>
+                        <li *ngFor="let hmenu of headerMenu | slice: 0:2"><a [href]="hmenu.url" class="inv-site"
+                            [target]="hmenu.target">{{hmenu.title}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
